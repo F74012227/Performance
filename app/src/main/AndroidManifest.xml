@@ -16,6 +16,18 @@
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
+        <activity
+            android:name=".PerformanceActivity"
+            android:label="@string/title_activity_performance" >
+        </activity>
+        <activity
+            android:name=".POIActivity"
+            android:label="@string/title_activity_poi" >
+        </activity>
+        <activity
+            android:name=".CollapseActivity"
+            android:label="@string/title_activity_collapse" >
+        </activity>
     </application>
 
 </manifest>
