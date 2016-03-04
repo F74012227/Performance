@@ -1,0 +1,82 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:orientation="vertical"
+    android:paddingBottom="10dp"
+    android:paddingLeft="25dp"
+    android:paddingRight="25dp"
+    android:paddingTop="10dp">
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:orientation="vertical">
+
+        <TextView
+            android:id="@+id/level_textView"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="訊號強度"
+            android:textColor="@android:color/black"
+            android:textSize="16dp" />
+
+        <TextView
+            android:id="@+id/levelshow_textView"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="可"
+            android:textColor="@android:color/black"
+            android:textSize="20dp"
+            android:textStyle="bold" />
+
+        <TextView
+            android:id="@+id/security_textView"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="安全性"
+            android:textColor="@android:color/black"
+            android:textSize="16dp" />
+
+        <TextView
+            android:id="@+id/securityshow_textView"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="WPA"
+            android:textColor="@android:color/black"
+            android:textSize="20dp"
+            android:textStyle="bold" />
+
+        <TextView
+            android:id="@+id/password_textView"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="密碼"
+            android:textColor="@android:color/black"
+            android:textSize="16dp" />
+
+        <EditText
+            android:id="@+id/passwordshow_editText"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_margin="5dp"
+            android:background="@drawable/passwordshow_bg"
+            android:ems="10"
+            android:inputType="textPassword"
+            android:password="false"
+            android:textSize="20dp" />
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:orientation="horizontal">
+
+            <CheckBox
+                android:id="@+id/checkBox"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="顯示密碼" />
+        </LinearLayout>
+    </LinearLayout>
+
+</LinearLayout>

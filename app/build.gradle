@@ -3,10 +3,9 @@ apply plugin: 'com.android.application'
 android {
     compileSdkVersion 23
     buildToolsVersion '23.0.2'
-
     defaultConfig {
         applicationId "com.mmlab.performance"
-        minSdkVersion 19
+        minSdkVersion 15
         targetSdkVersion 23
         versionCode 1
         versionName "1.0"
@@ -17,22 +16,40 @@ android {
             proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.pro'
         }
     }
-
     // Flag to tell aapt to keep the attribute ids around
     aaptOptions {
         additionalParameters "--no-version-vectors"
+    }
+    productFlavors {
+    }
+
+    packagingOptions {
+        exclude 'lib/native.properties'
     }
 }
 
 repositories {
     jcenter()
+    mavenCentral()
+    maven { url "https://jitpack.io" }
 }
 
 dependencies {
+    compile('com.afollestad.material-dialogs:core:0.8.4.2@aar') {
+        transitive = true
+    }
+    compile('com.afollestad.material-dialogs:commons:0.8.4.2@aar') {
+        transitive = true
+    }
     compile fileTree(dir: 'libs', include: ['*.jar'])
     compile 'com.github.bumptech.glide:glide:3.7.0'
-    compile 'com.android.support:support-v4:23.2.0'
-    compile 'com.android.support:appcompat-v7:23.2.0'
-    compile 'com.android.support:design:23.2.0'
-    compile 'com.android.support:cardview-v7:23.2.0'
+    compile 'com.android.support:appcompat-v7:23.1.1'
+    compile 'com.android.support:design:23.1.1'
+    compile 'com.android.support:cardview-v7:23.1.1'
+    compile 'com.android.support:recyclerview-v7:23.1.1'
+    compile files('libs/concurrent-jaxed.jar')
+    compile files('libs/fec-linux-x86.jar')
+    compile files('libs/fec-win32.jar')
+    compile files('libs/log4j.jar')
+    compile files('libs/onion-common.jar')
 }
