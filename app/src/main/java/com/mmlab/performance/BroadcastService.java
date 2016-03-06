@@ -14,10 +14,11 @@ import com.onionnetworks.fec.FECCode;
 import com.onionnetworks.fec.FECCodeFactory;
 import com.onionnetworks.util.Buffer;
 
+import java.io.ByteArrayOutputStream;
 import java.io.File;
-import java.io.FileInputStream;
 import java.io.FileOutputStream;
 import java.io.IOException;
+import java.io.InputStream;
 import java.net.DatagramPacket;
 import java.net.DatagramSocket;
 import java.net.InetAddress;
@@ -25,6 +26,8 @@ import java.net.InetSocketAddress;
 import java.net.InterfaceAddress;
 import java.net.NetworkInterface;
 import java.net.SocketException;
+import java.net.URL;
+import java.net.URLConnection;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Enumeration;
@@ -41,7 +44,7 @@ public class BroadcastService {
     private Context context;
 
     private int BROADCAST_PORT = 65303;
-    private int DATAGRAM_MAX_SIZE = 546;
+    private static final int DATAGRAM_MAX_SIZE = 546;
     private int CHUNCK_SIZE = 10240;
 
     private static final int MAX_SESSION_NUMBER = 255;
@@ -266,6 +269,12 @@ public class BroadcastService {
         sender.execute();
     }
 
+    public void send() {
+        Sender sender = new Sender("123");
+        senders.add(sender);
+        sender.execute();
+    }
+
     public void receive() {
         if (receiver == null) {
             receiver = new Receiver();
@@ -344,7 +353,49 @@ public class BroadcastService {
 
         private void send() {
             groupNumber = 0;
-            if (object instanceof File) {
+            try {
+                String sUrl = "http://deh.csie.ncku.edu.tw/deh/functions/pic_add_watermark.php?src=player_pictures/20150305182420_455_.jpg";
+                fileName = sUrl.substring(sUrl.lastIndexOf("/") + 1, sUrl.length());
+                Log.d(TAG, "fileName : " + fileName);
+                fileName = "file.jpg";
+                URL url = new URL(sUrl);
+                URLConnection conn = url.openConnection();
+                conn.connect();
+
+                InputStream is = conn.getInputStream();
+                int len = CHUNCK_SIZE, rlen;
+                byte[] buffer = new byte[CHUNCK_SIZE];
+                ByteArrayOutputStream bos = new ByteArrayOutputStream();
+                while ((rlen = is.read(buffer)) != -1) {
+                    bos.write(buffer, 0, rlen);
+                }
+                byte[] data = bos.toByteArray();
+                int dadada = data.length;
+
+                groups = (int) Math.ceil((float) dadada / (float) CHUNCK_SIZE);
+                Log.d(TAG, "length : " + dadada + "  groups:" + groups);
+                for (int i = 0; i < groups; i++) {
+                    Log.d(TAG, "current group :" + i);
+                    int index = i * CHUNCK_SIZE;
+                    if (i == (groups - 1)) {
+                        if (isFEC)
+                            fecSendBytes(Arrays.copyOfRange(data, index, index + dadada - i * CHUNCK_SIZE));
+                        else
+                            norSendBytes(Arrays.copyOfRange(data, index, index + dadada - i * CHUNCK_SIZE));
+                    } else {
+                        if (isFEC) {
+                             fecSendBytes(Arrays.copyOfRange(data, index, index + CHUNCK_SIZE));
+                        } else
+                            norSendBytes(Arrays.copyOfRange(data, index, index + CHUNCK_SIZE));
+                    }
+                    groupNumber++;
+                }
+            } catch (Exception e) {
+                Log.d(TAG, e.toString(), e);
+            }
+
+
+            /*if (object instanceof File) {
                 File file = (File) object;
                 FileInputStream fileInputStream = null;
 
@@ -396,7 +447,7 @@ public class BroadcastService {
                     }
                     groupNumber++;
                 }
-            }
+            }*/
 
             idNumber = idNumber < MAX_ID_NUMBER ? ++idNumber : 0;
         }
@@ -455,6 +506,8 @@ public class BroadcastService {
             int dataLength = data.length;
             int k = (int) Math.ceil(dataLength / (float) DATA_SIZE);
             int n = k * 2;
+
+            Log.d(TAG, "TTTTTTTTTTTTTTTTTTTTTTT  : " + k + "      " + n + " " + dataLength);
 
             byte[] source = new byte[k * DATA_SIZE]; //this is our source file
             Arrays.fill(source, (byte) 0);

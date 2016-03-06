@@ -43,6 +43,11 @@
                 android:id="@+id/toggleButton_fec" />
         </LinearLayout>
 
+        <ImageView
+            android:layout_width="match_parent"
+            android:layout_height="100dp"
+            android:id="@+id/image" />
+
         <ScrollView
             android:id="@+id/scrollView"
             android:layout_width="match_parent"
@@ -55,4 +60,5 @@
                 android:text="" />
         </ScrollView>
     </LinearLayout>
+
 </RelativeLayout>

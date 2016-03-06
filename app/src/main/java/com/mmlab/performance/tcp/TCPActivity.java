@@ -1,32 +1,25 @@
-package com.mmlab.performance;
+package com.mmlab.performance.tcp;
 
-import android.content.Intent;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
 import android.view.Menu;
 import android.view.MenuItem;
 
-import com.mmlab.performance.share.ShareActivity;
-import com.mmlab.performance.wifi.WiFiActivity;
+import com.mmlab.performance.R;
 
-public class MainActivity extends AppCompatActivity {
+public class TCPActivity extends AppCompatActivity {
 
-    @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_main);
-
-        startActivity(new Intent(MainActivity.this, BroadcastActivity.class));
+        setContentView(R.layout.activity_tcp);
     }
 
-    @Override
     public boolean onCreateOptionsMenu(Menu menu) {
         // Inflate the menu; this adds items to the action bar if it is present.
-        getMenuInflater().inflate(R.menu.menu_main, menu);
+        getMenuInflater().inflate(R.menu.menu_tc, menu);
         return true;
     }
 
-    @Override
     public boolean onOptionsItemSelected(MenuItem item) {
         // Handle action bar item clicks here. The action bar will
         // automatically handle clicks on the Home/Up button, so long

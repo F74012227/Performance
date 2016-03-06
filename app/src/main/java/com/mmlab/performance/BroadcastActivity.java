@@ -1,18 +1,29 @@
 package com.mmlab.performance;
 
+import android.graphics.Bitmap;
+import android.graphics.BitmapFactory;
 import android.os.Bundle;
 import android.os.Environment;
+import android.os.Handler;
+import android.os.Looper;
+import android.os.Message;
 import android.support.v7.app.AppCompatActivity;
+import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.Button;
 import android.widget.CompoundButton;
+import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
 import android.widget.ToggleButton;
 
+import java.io.ByteArrayOutputStream;
 import java.io.File;
+import java.io.InputStream;
+import java.net.URL;
+import java.net.URLConnection;
 import java.text.SimpleDateFormat;
 
 public class BroadcastActivity extends AppCompatActivity {
@@ -22,12 +33,10 @@ public class BroadcastActivity extends AppCompatActivity {
     private BroadcastService broadcastService;
 
     private TextView textView_message;
-
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_broadcast);
-
         globalVariable = (GlobalVariable) getApplication();
         broadcastService = globalVariable.getBroadcastService();
         broadcastService.start();

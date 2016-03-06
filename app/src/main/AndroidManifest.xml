@@ -50,6 +50,14 @@
             android:name=".wifi.WiFiActivity"
             android:label="@string/title_activity_wi_fi" >
         </activity>
+        <activity
+            android:name=".share.ShareActivity"
+            android:label="@string/title_activity_share" >
+        </activity>
+        <activity
+            android:name=".tcp.TCPActivity"
+            android:label="@string/title_activity_tcp" >
+        </activity>
     </application>
 
 </manifest>
